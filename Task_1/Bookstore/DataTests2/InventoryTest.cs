@@ -19,7 +19,8 @@ namespace DataTests
         [ClassData(typeof(InventoryTestData))]
         public void CatalogInsert(ISBN isbn, int count)
         {
-            Inventory inventory = new Inventory { { isbn, count } };
+            Inventory inventory = new Inventory();
+            inventory.Add(isbn, count);
             Assert.Single(inventory);
             Assert.Equal(count, inventory[isbn]);
         }
@@ -30,7 +31,8 @@ namespace DataTests
         [ClassData(typeof(InventoryTestData))]
         public void InventoryRemove(ISBN isbn, int count)
         {
-            Inventory inventory = new Inventory { { isbn, count } };
+            Inventory inventory = new Inventory();
+            inventory.Add(isbn, count);
             inventory.Remove(isbn);
             Assert.Empty(inventory);
         }

@@ -40,7 +40,7 @@ namespace Data
 
         public void Add(KeyValuePair<ISBN, int> item)
         {
-            throw new System.NotImplementedException();
+            this.data.Add(item.Key, item.Value);
         }
 
         public void Clear()
@@ -57,11 +57,11 @@ namespace Data
             throw new System.NotImplementedException();
         }
 
-        public IEnumerator<KeyValuePair<ISBN, int>> GetEnumerator() => throw new System.NotImplementedException();
+        public IEnumerator<KeyValuePair<ISBN, int>> GetEnumerator() => this.data.GetEnumerator();
 
         public bool Remove(ISBN key) => this.data.Remove(key);
 
-        public bool Remove(KeyValuePair<ISBN, int> item) => throw new System.NotImplementedException();
+        public bool Remove(KeyValuePair<ISBN, int> item) => this.data.Remove(item.Key);
 
         public bool TryGetValue(ISBN key, out int value) => this.data.TryGetValue(key, out value);
 
