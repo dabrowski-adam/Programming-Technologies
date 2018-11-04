@@ -5,7 +5,7 @@ namespace DataTests
 {
     public class ActorTest
     {
-        #region NameTest
+        #region ActorConstructor
         [Theory]
         [InlineData("John Smith")]
         [InlineData("Maria Skłodowska-Curie")]
@@ -16,6 +16,5 @@ namespace DataTests
             Assert.Equal(name, actor.Name);
         }
         #endregion
-
     }
 }

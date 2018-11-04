@@ -5,9 +5,9 @@ namespace DataTests
 {
     public class BookTest
     {
-        #region BookTest
+        #region BookConstructor
         [Theory]
-        [InlineData("Mistborn", "Brandon Sanderson")]
+        [InlineData("The Final Empire", "Brandon Sanderson")]
         [InlineData("Ostatnie Życzenie", "Andrzej Sapkowski")]
         [InlineData("Harry Potter and the Philosopher's Stone", "J.K. Rowling")]
         public void BookConstructor(string title, string author)
@@ -17,6 +17,5 @@ namespace DataTests
             Assert.Equal(author, book.Author);
         }
         #endregion
-
     }
 }
