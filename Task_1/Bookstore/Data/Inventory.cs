@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using Data;
+﻿using System.Collections.Generic;
+
 namespace Data
 {
-    class Specimens:List<Book>
+    public class Inventory : List<Book>
     {
 
     }
