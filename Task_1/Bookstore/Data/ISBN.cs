@@ -6,6 +6,10 @@ namespace Data
     {
         public String Id { get; set; }
 
+        public ISBN(string id) {
+            this.Id = id;
+        }
+
         public bool Equals(ISBN other)
         {
             return other.Id == Id;
