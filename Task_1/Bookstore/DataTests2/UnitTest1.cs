@@ -1,5 +1,4 @@
 using Xunit;
-using Data;
 
 namespace DataTests2
 {
