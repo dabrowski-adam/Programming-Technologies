@@ -14,10 +14,10 @@ namespace DataTests
         }
         #endregion
 
-        #region InventoryInsert
+        #region InventoryAdd
         [Theory]
         [ClassData(typeof(InventoryTestData))]
-        public void CatalogInsert(ISBN isbn, int count)
+        public void CatalogAdd(ISBN isbn, int count)
         {
             Inventory inventory = new Inventory();
             inventory.Add(isbn, count);
@@ -26,10 +26,10 @@ namespace DataTests
         }
         #endregion
 
-        #region InventoryInsertMultiple
+        #region InventoryAddMultiple
         [Theory]
         [ClassData(typeof(InventoryTestData))]
-        public void CatalogInsertMultiple(ISBN isbn, int count)
+        public void CatalogAddMultiple(ISBN isbn, int count)
         {
             Inventory inventory = new Inventory();
             inventory.Add(isbn, count);
