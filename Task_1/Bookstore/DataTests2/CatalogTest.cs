@@ -16,11 +16,10 @@ namespace DataTests
 
         #region CatalogInsert
         [Theory]
-        [ClassData(typeof(BookTestData))]
-        public void CatalogInsert(Book book)
+        [ClassData(typeof(CatalogTestData))]
+        public void CatalogInsert(ISBN isbn, Book book)
         {
             Catalog catalog = new Catalog();
-            ISBN isbn = new ISBN("0123456789123");
             catalog.Add(isbn, book);
             Assert.Single(catalog);
             Assert.Equal(book, catalog[isbn]);
@@ -29,12 +28,10 @@ namespace DataTests
 
         #region CatalogRemove
         [Theory]
-        [ClassData(typeof(BookTestData))]
-        public void CatalogRemove(Book book)
+        [ClassData(typeof(CatalogTestData))]
+        public void CatalogRemove(ISBN isbn, Book book)
         {
-            Catalog catalog = new Catalog();
-            ISBN isbn = new ISBN("0123456789123");
-            catalog.Add(isbn, book);
+            Catalog catalog = new Catalog { { isbn, book } };
             catalog.Remove(isbn);
             Assert.Empty(catalog);
         }
