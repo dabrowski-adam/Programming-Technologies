@@ -5,7 +5,7 @@ using System.Text;
 using Data;
 namespace Data
 {
-    class Specimens:List<Book>
+    public class Inventory:List<Book>
     {
 
     }
