@@ -39,6 +39,17 @@ namespace DataTests
         }
         #endregion
 
+        #region InventoryAdd
+        [Theory]
+        [ClassData(typeof(InventoryTestData))]
+        public void InventoryAdd(ISBN isbn, int count)
+        {
+            Inventory inventory = new Inventory { { isbn, count } };
+            inventory.Add(isbn, count);
+            inventory.Add(isbn, 2);
+            Assert.Equal(inventory[isbn],count+2);
+        }
+        #endregion
 
     }
 }

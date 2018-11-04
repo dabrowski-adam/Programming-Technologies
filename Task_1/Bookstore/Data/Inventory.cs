@@ -6,24 +6,14 @@ namespace Data
     public class Inventory : Dictionary<ISBN, int>
 
     {
-        internal new virtual void Add(ISBN key, int value)
+        internal virtual new void Add(ISBN key, int value)
         {
             if (!base.ContainsKey(key))
             {
                 base.Add(key, value);
             }
-            else;
+            else this[key] = this[key] + value;
         }
-        /*
-                internal new virtual void Add(ISBN key)
-                 {
-                      if (!base.ContainsKey(key))
-                    {
-                        base.Add(key);
-                    }
-                 }
 
-            }
-            */
     }
 }
