@@ -2,12 +2,25 @@
 
 namespace Data
 {
-<<<<<<< HEAD
-    public class Inventory:List<Book>
-=======
-    public class Inventory : List<Book>
->>>>>>> 72b01a69a834f3a8289030a9be6c7141ad47b9e9
+    public class Inventory : Dictionary<ISBN, int>
     {
+        internal new virtual void Add(ISBN key, int value)
+        {
+            if (!base.ContainsKey(key))
+            {
+                base.Add(key, value);
+            }
+            else ;
+        }
+/*
+        internal new virtual void Add(ISBN key)
+         {
+              if (!base.ContainsKey(key))
+            {
+                base.Add(key);
+            }
+         }
 
     }
+    */
 }

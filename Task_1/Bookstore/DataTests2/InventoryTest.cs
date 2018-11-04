@@ -17,34 +17,27 @@ namespace DataTests
         }
         #endregion
 
-        #region InventoryAdd
+        #region InventoryInsert
         [Theory]
         [ClassData(typeof(InventoryTestData))]
-        public void CanAddInventoryData(Book book)
+        public void CatalogInsert(ISBN isbn, int count)
         {
-            Inventory inventory = new Inventory();
-            inventory.Add(book);
-            Assert.True(inventory.Contains(book));
+            Inventory inventory = new Inventory { { isbn, count } };
             Assert.Single(inventory);
+            Assert.Equal(count, inventory[isbn]);
         }
-
         #endregion
-
 
         #region InventoryRemove
         [Theory]
         [ClassData(typeof(InventoryTestData))]
-        public void CanRemoveInventoryData(Book book)
+        public void InventoryRemove(ISBN isbn, int count)
         {
-            Inventory inventory = new Inventory();
-            inventory.Add(book);
-            inventory.Remove(book);
-            Assert.False(inventory.Contains(book));
+            Inventory inventory = new Inventory { { isbn, count } };
+            inventory.Remove(isbn);
             Assert.Empty(inventory);
         }
-
         #endregion
-
 
 
     }
