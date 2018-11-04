@@ -8,9 +8,9 @@ namespace DataTests
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return new object[] { new ISBN("9780765311788"), new Book("The Final Empire", "Brandon Sanderson") };
-            yield return new object[] { new ISBN("9788370540616"), new Book("Ostatnie Życzenie", "Andrzej Sapkowski") };
-            yield return new object[] { new ISBN("9780439554930"), new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling") };
+            yield return new object[] { new ISBN("9780765311788"), new Book(new Description("The Final Empire", "Brandon Sanderson"), 8.99f) };
+            yield return new object[] { new ISBN("9788370540616"), new Book(new Description("Ostatnie Życzenie", "Andrzej Sapkowski"), 7.99f) };
+            yield return new object[] { new ISBN("9780439554930"), new Book(new Description("Harry Potter and the Philosopher's Stone", "J.K. Rowling"), 7.49f) };
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

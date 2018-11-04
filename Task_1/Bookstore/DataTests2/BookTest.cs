@@ -5,16 +5,14 @@ namespace DataTests
 {
     public class BookTest
     {
-        #region BookConstructor
+        #region DescriptionConstructor
         [Theory]
-        [InlineData("The Final Empire", "Brandon Sanderson")]
-        [InlineData("Ostatnie Życzenie", "Andrzej Sapkowski")]
-        [InlineData("Harry Potter and the Philosopher's Stone", "J.K. Rowling")]
-        public void BookConstructor(string title, string author)
+        [ClassData(typeof(BookTestData))]
+        public void DescriptionConstructor(Description description, float price)
         {
-            Book book = new Book(title, author);
-            Assert.Equal(title, book.Title);
-            Assert.Equal(author, book.Author);
+            Book book = new Book(description, price);
+            Assert.Equal(description, book.Description);
+            Assert.Equal(price, book.Price);
         }
         #endregion
     }

@@ -1,16 +1,14 @@
-﻿using System;
-
-namespace Data
+﻿namespace Data
 {
     public class Book
     {
-        public String Title { get; private set; }
-        public String Author { get; private set; }
+        public Description Description { get; private set; }
+        public float Price { get; private set; }
 
-        public Book(String title, String author)
+        public Book(Description description, float price)
         {
-            this.Title = title;
-            this.Author = author;
+            this.Description = description;
+            this.Price = price;
         }
     }
 }
