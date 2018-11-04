@@ -21,10 +21,18 @@ namespace Data
 
         public bool IsReadOnly => throw new System.NotImplementedException();
 
+        public void Remove(ISBN key, int value) {
+            if (this.data.ContainsKey(key) && this.data[key] >= value) {
+                this.data[key] -= value;
+            } else {
+                throw new System.ArgumentOutOfRangeException(nameof(value));
+            }
+        }
+
         public void Add(ISBN key, int value)
         {
             if (this.data.ContainsKey(key)) {
-                this.data[key] = this.data[key] + value;
+                this.data[key] += value;
             } else {
                 this.data.Add(key, value);
             }
