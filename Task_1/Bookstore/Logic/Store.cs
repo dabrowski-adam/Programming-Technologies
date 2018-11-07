@@ -26,6 +26,8 @@ namespace Logic
             // Check if there's enough money to pay for this shipment
             if (Money < price * count) { return false; }
 
+            Money -= price * count;
+
             // Log the delivery
             Invoice invoice = new Invoice(isbn, price, count);
             Event delivery = new Event(seller, new List<Invoice> { invoice });
