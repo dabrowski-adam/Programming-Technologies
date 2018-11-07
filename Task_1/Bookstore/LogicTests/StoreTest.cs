@@ -5,10 +5,11 @@ namespace LogicTests
 {
     public class StoreTest
     {
-        [Fact]
-        public void StockTest()
+        [Theory]
+        [ClassData(typeof(StoreTestData))]
+        public void StockTest(Store store)
         {
-
+            Assert.True(true);
         }
     }
 }
