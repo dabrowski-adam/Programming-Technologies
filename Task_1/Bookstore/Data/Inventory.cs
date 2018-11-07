@@ -27,13 +27,17 @@ namespace Data
 
         public void Remove(ISBN key, int value)
         {
-            if (data.ContainsKey(key) && data[key] >= value)
+            if (data.ContainsKey(key))
             {
-                data[key] -= value;
-            }
-            else
-            {
-                throw new System.ArgumentOutOfRangeException(nameof(value));
+                int count = data[key];
+
+                if (count > value) {
+                    data[key] -= value;
+                } else if (count == value) {
+                    data.Remove(key);
+                } else {
+                    throw new System.ArgumentOutOfRangeException(nameof(value));
+                }
             }
         }
 

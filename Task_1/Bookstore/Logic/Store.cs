@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Data;
 
 namespace Logic
@@ -22,7 +23,15 @@ namespace Logic
             this.history = history;
         }
 
-        public int getBookCount(ISBN isbn)
+        public List<ISBN> GetBooks() {
+            return catalog.Keys.ToList();
+        }
+
+        public Description GetBookDescription(ISBN isbn) {
+            return catalog.TryGetValue(isbn, out Book book) ? book.Description : null;
+        }
+
+        public int GetBookAvailability(ISBN isbn)
         {
             return inventory.TryGetValue(isbn, out int count) ? count : 0;
         }
@@ -54,11 +63,8 @@ namespace Logic
 
         public bool Sell(Actor customer, ISBN isbn, int count)
         {
-            // Check if available
-            if (!inventory.TryGetValue(isbn, out int inStock) || inStock < count)
-            {
-                return false;
-            }
+            int inStock = GetBookAvailability(isbn);
+            if (inStock < count) { return false; }
 
             float price = catalog[isbn].Price;
             Money += price * count;
