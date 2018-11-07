@@ -6,7 +6,7 @@ namespace LogicTests
     public class StoreTest
     {
         [Fact]
-        public void BuyTest()
+        public void StockTest()
         {
 
         }

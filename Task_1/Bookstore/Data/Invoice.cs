@@ -2,15 +2,15 @@
 {
     public class Invoice
     {
-        public Book Book { get; private set; }
+        public ISBN ISBN { get; private set; }
         public float Price { get; private set; }
-        public int Amount { get; private set; }
+        public int Number { get; private set; }
 
-        public Invoice(Book book, float price, int amount)
+        public Invoice(ISBN isbn, float price, int number)
         {
-            this.Book = book;
-            this.Amount = amount;
+            this.ISBN = isbn;
             this.Price = price;
+            this.Number = number;
         }
     }
 }

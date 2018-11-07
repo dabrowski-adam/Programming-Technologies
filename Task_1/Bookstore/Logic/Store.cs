@@ -8,25 +8,42 @@ namespace Logic
     /// </summary>
     public class Store
     {
-        private readonly Catalog catalog;
-        private readonly Inventory inventory;
-        private readonly List<Event> history;
+        public float Money { get; private set; }
+        const float PROFIT_MARGIN = 0.2f;
+        readonly Catalog catalog;
+        readonly Inventory inventory;
+        readonly List<Event> history;
 
-        public Store(Catalog catalog, Inventory inventory) {
+        public Store(Catalog catalog, Inventory inventory, float capital) {
+            Money = capital;
             this.catalog = catalog;
             this.inventory = inventory;
             history = new List<Event>();
         }
 
-        public void Stock(Book book, int amount)
+        public bool Stock(Actor seller, float price, int count, ISBN isbn, Description description)
         {
-            Invoice invoice = new Invoice(book, book.Price, amount);
+            // Check if there's enough money to pay for this shipment
+            if (Money < price * count) { return false; }
 
+            // Log the delivery
+            Invoice invoice = new Invoice(isbn, price, count);
+            Event delivery = new Event(seller, new List<Invoice> { invoice });
+
+            // Ensure the book is listed in the catalog
+            if (!catalog.ContainsKey(isbn)) {
+                Book book = new Book(description, price + price * PROFIT_MARGIN);
+                catalog.Add(isbn, book);
+            }
+
+            // Update stock count
+            inventory.Add(isbn, count);
+
+            return true;
         }
 
-        public void Sell(Book book, int amount)
+        public void Sell(ISBN book, int amount)
         {
-            Invoice invoice = new Invoice(book, book.Price, amount);
 
         }
     }
