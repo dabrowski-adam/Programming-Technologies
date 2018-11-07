@@ -47,17 +47,25 @@ namespace Logic
 
         public bool Sell(Actor customer, ISBN isbn, int count)
         {
+            // Check if available
             int inStock = inventory[isbn];
             if (inStock < count) { return false; }
 
             float price = catalog[isbn].Price;
+            Money += price * count;
+
+            // Log the sale
             Invoice invoice = new Invoice(isbn, price, count);
             Event sale = new Event(customer, new List<Invoice> { invoice });
             history.Add(sale);
 
-            Money += price * count;
-
+            // Update stock count
             inventory.Remove(isbn, count);
+
+            // Remove from catalog if no longer available
+            if (inStock - count == 0) {
+                catalog.Remove(isbn);
+            }
 
             return true;
         }
