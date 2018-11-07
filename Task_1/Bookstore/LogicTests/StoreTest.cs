@@ -80,5 +80,15 @@ namespace LogicTests
             Assert.True(store.Sell(buyer, isbn, count));
         }
         #endregion
+
+        #region UnsuccessfulSale
+        [Theory]
+        [MemberData(nameof(StoreTestData.GetStoresAndImpossibleSales), MemberType = typeof(StoreTestData))]
+        public void UnsuccessfulSale(Store store, Actor buyer, ISBN isbn, int count)
+        {
+            float capital = store.Money;
+            Assert.False(store.Sell(buyer, isbn, count));
+        }
+        #endregion
     }
 }
