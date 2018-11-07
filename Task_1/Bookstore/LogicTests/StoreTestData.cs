@@ -46,5 +46,19 @@ namespace LogicTests
                 yield return new object[] { advance(stores), advance(actors), .01f, 10000, new ISBN("1234567890123"), advance(descriptions) };
             }
         }
+
+        public static IEnumerable<object[]> GetStoresAndTooExpensiveDeliveries()
+        {
+            using (IEnumerator<Store> stores = GetStores().GetEnumerator())
+            using (IEnumerator<Actor> actors = GetActors().GetEnumerator())
+            using (IEnumerator<Description> descriptions = GetDescriptions().GetEnumerator())
+            {
+                yield return new object[] { advance(stores), advance(actors), .1f, 1, new ISBN("1234567890123"), advance(descriptions) };
+
+                yield return new object[] { advance(stores), advance(actors), 100f, 11, new ISBN("1234567890123"), advance(descriptions) };
+
+                yield return new object[] { advance(stores), advance(actors), 100000, 100, new ISBN("1234567890123"), advance(descriptions) };
+            }
+        }
     }
 }

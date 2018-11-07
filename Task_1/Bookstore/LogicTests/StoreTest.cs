@@ -14,5 +14,14 @@ namespace LogicTests
             Assert.True(store.Stock(seller, price, count, isbn, description));
         }
         #endregion
+
+        #region UnsuccessfulStocking
+        [Theory]
+        [MemberData(nameof(StoreTestData.GetStoresAndTooExpensiveDeliveries), MemberType = typeof(StoreTestData))]
+        public void StockTooExpensiveTest(Store store, Actor seller, float price, int count, ISBN isbn, Description description)
+        {
+            Assert.False(store.Stock(seller, price, count, isbn, description));
+        }
+        #endregion
     }
 }
