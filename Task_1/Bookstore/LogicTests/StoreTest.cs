@@ -16,19 +16,35 @@ namespace LogicTests
             Assert.True(store.Stock(seller, price, count, isbn, description));
             Assert.Equal(capital - price * count, store.Money);
 
+            // Check event logging
             var events = store.GetEvents();
             Assert.Single(events);
 
-            var buy = events.ElementAt(0);
+            Event buy = events.ElementAt(0);
             Assert.Equal(seller.Name, buy.Actor.Name);
 
             var invoices = buy.Invoices;
             Assert.Single(invoices);
 
-            var invoice = invoices.ElementAt(0);
+            Invoice invoice = invoices.ElementAt(0);
             Assert.Equal(isbn, invoice.ISBN);
             Assert.Equal(price, invoice.Price);
             Assert.Equal(count, invoice.Number);
+
+            // Check catalog
+            var books = store.GetBooks();
+            Assert.Single(books);
+
+            ISBN addedISBN = books.ElementAt(0);
+            Assert.Equal(isbn, addedISBN);
+
+            Description addedDescription = store.GetBookDescription(addedISBN);
+            Assert.Equal(description.Author, addedDescription.Author);
+            Assert.Equal(description.Title, addedDescription.Title);
+
+            // Check inventory
+            int addedCount = store.GetBookAvailability(addedISBN);
+            Assert.Equal(count, addedCount);
         }
         #endregion
 
