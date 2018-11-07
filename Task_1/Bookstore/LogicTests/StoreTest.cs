@@ -11,8 +11,11 @@ namespace LogicTests
         #region GetEvents
         [Fact]
         public void GetEventsTest() {
-            var history = new List<Event>();
-            history.Add(new Event(new Actor("John Smith"), new List<Invoice> { new Invoice(new ISBN("1"), 50f, 2) }));
+            var history = new List<Event>
+            {
+                new Event(new Actor("John Smith"), new List<Invoice> { new Invoice(new ISBN("1"), 50f, 2) }),
+                new Event(new Actor("Larry Page"), new List<Invoice> { new Invoice(new ISBN("2"), 24.99f, 15) })
+            };
             Store store = new Store(new Catalog(), new Inventory(), history, .0f);
             Assert.Equal(history, store.GetEvents());
         }
@@ -22,8 +25,11 @@ namespace LogicTests
         [Fact]
         public void GetBooksTest()
         {
-            var catalog = new Catalog();
-            catalog.Add(new ISBN("1234567890123"), new Book(new Description("Title", "Author"), 24.99f));
+            var catalog = new Catalog
+            {
+                { new ISBN("1234567890123"), new Book(new Description("Title", "Author"), 24.99f) },
+                { new ISBN("1234567890000"), new Book(new Description("Another Title", "Author"), 4.99f) }
+            };
             Store store = new Store(catalog, new Inventory(), new List<Event>(), .0f);
             Assert.Equal(catalog.Keys, store.GetBooks());
         }
@@ -33,10 +39,12 @@ namespace LogicTests
         [Fact]
         public void GetBookListingTest()
         {
-            var catalog = new Catalog();
-            Book book = new Book(new Description("Title", "Author"), 24.99f);
             string id = "1234567890123";
+            Book book = new Book(new Description("Title", "Author"), 24.99f);
+
+            var catalog = new Catalog();
             catalog.Add(new ISBN(id), book);
+
             Store store = new Store(catalog, new Inventory(), new List<Event>(), .0f);
             Assert.Equal(book, store.GetBookListing(new ISBN(id)));
         }
@@ -46,10 +54,12 @@ namespace LogicTests
         [Fact]
         public void GetBookDescriptionTest()
         {
-            var catalog = new Catalog();
-            Description description = new Description("Title", "Author");
             string id = "1234567890123";
+            Description description = new Description("Title", "Author");
+
+            var catalog = new Catalog();
             catalog.Add(new ISBN(id), new Book(description, 24.99f));
+
             Store store = new Store(catalog, new Inventory(), new List<Event>(), .0f);
             Assert.Equal(description, store.GetBookDescription(new ISBN(id)));
         }
