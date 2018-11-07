@@ -8,7 +8,7 @@ namespace Data
     /// </summary>
     public class Inventory : IDictionary<ISBN, int>
     {
-        private Dictionary<ISBN, int> data;
+        private readonly Dictionary<ISBN, int> data;
 
         public Inventory() {
             this.data = new Dictionary<ISBN, int>();

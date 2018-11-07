@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using System.Collections.Generic;
+using Data;
 
 namespace Logic
 {
@@ -7,13 +8,23 @@ namespace Logic
     /// </summary>
     public class Store
     {
-        public void Buy(Book book, int amount)
+        private readonly Catalog catalog;
+        private readonly Inventory inventory;
+        private readonly List<Event> history;
+
+        public Store(Catalog catalog, Inventory inventory) {
+            this.catalog = catalog;
+            this.inventory = inventory;
+            history = new List<Event>();
+        }
+
+        public void Stock(Book book, int amount)
         {
             Invoice invoice = new Invoice(book, book.Price, amount);
 
         }
 
-        public void Stock(Book book, int amount)
+        public void Sell(Book book, int amount)
         {
             Invoice invoice = new Invoice(book, book.Price, amount);
 
