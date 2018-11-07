@@ -29,6 +29,7 @@ namespace Logic
             // Log the delivery
             Invoice invoice = new Invoice(isbn, price, count);
             Event delivery = new Event(seller, new List<Invoice> { invoice });
+            history.Add(delivery);
 
             // Ensure the book is listed in the catalog
             if (!catalog.ContainsKey(isbn)) {
@@ -42,9 +43,23 @@ namespace Logic
             return true;
         }
 
-        public void Sell(ISBN book, int amount)
+        public bool Sell(Actor customer, ISBN isbn, int count)
         {
+            int inStock = inventory[isbn];
 
+            if (inStock < count) { return false; }
+
+
+            float price = catalog[isbn].Price;
+            Invoice invoice = new Invoice(isbn, price, count);
+            Event sale = new Event(customer, new List<Invoice> { invoice });
+            history.Add(sale);
+
+            Money += price * count;
+
+            inventory.Remove(isbn, count);
+
+            return true;
         }
     }
 }
