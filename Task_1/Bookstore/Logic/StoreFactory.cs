@@ -5,7 +5,8 @@ namespace Logic
 {
     public class StoreFactory
     {
-        public Store CreateStore() {
+        public Store CreateStore()
+        {
             return new Store(new Catalog(), new Inventory(), new List<Event>(), .0f);
         }
 

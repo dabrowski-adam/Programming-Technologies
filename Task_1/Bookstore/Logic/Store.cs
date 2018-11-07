@@ -14,14 +14,16 @@ namespace Logic
         readonly Inventory inventory;
         readonly List<Event> history;
 
-        public Store(Catalog catalog, Inventory inventory, List<Event> history, float capital) {
+        public Store(Catalog catalog, Inventory inventory, List<Event> history, float capital)
+        {
             Money = capital;
             this.catalog = catalog;
             this.inventory = inventory;
             this.history = history;
         }
 
-        public int getBookCount(ISBN isbn) {
+        public int getBookCount(ISBN isbn)
+        {
             return inventory.TryGetValue(isbn, out int count) ? count : 0;
         }
 
@@ -38,7 +40,8 @@ namespace Logic
             history.Add(delivery);
 
             // Ensure the book is listed in the catalog
-            if (!catalog.ContainsKey(isbn)) {
+            if (!catalog.ContainsKey(isbn))
+            {
                 Book book = new Book(description, price + price * PROFIT_MARGIN);
                 catalog.Add(isbn, book);
             }
@@ -52,7 +55,8 @@ namespace Logic
         public bool Sell(Actor customer, ISBN isbn, int count)
         {
             // Check if available
-            if (!inventory.TryGetValue(isbn, out int inStock) || inStock < count) {
+            if (!inventory.TryGetValue(isbn, out int inStock) || inStock < count)
+            {
                 return false;
             }
 
@@ -68,7 +72,8 @@ namespace Logic
             inventory.Remove(isbn, count);
 
             // Remove from catalog if no longer available
-            if (inStock - count == 0) {
+            if (inStock - count == 0)
+            {
                 catalog.Remove(isbn);
             }
 
