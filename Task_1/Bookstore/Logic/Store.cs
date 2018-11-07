@@ -14,11 +14,11 @@ namespace Logic
         readonly Inventory inventory;
         readonly List<Event> history;
 
-        public Store(Catalog catalog, Inventory inventory, float capital) {
+        public Store(Catalog catalog, Inventory inventory, List<Event> history, float capital) {
             Money = capital;
             this.catalog = catalog;
             this.inventory = inventory;
-            history = new List<Event>();
+            this.history = history;
         }
 
         public bool Stock(Actor seller, float price, int count, ISBN isbn, Description description)
