@@ -1,3 +1,4 @@
+using System.Linq;
 using Xunit;
 using Logic;
 using Data;
@@ -14,6 +15,20 @@ namespace LogicTests
             float capital = store.Money;
             Assert.True(store.Stock(seller, price, count, isbn, description));
             Assert.Equal(capital - price * count, store.Money);
+
+            var events = store.GetEvents();
+            Assert.Single(events);
+
+            var buy = events.ElementAt(0);
+            Assert.Equal(seller.Name, buy.Actor.Name);
+
+            var invoices = buy.Invoices;
+            Assert.Single(invoices);
+
+            var invoice = invoices.ElementAt(0);
+            Assert.Equal(isbn, invoice.ISBN);
+            Assert.Equal(price, invoice.Price);
+            Assert.Equal(count, invoice.Number);
         }
         #endregion
 
@@ -25,6 +40,7 @@ namespace LogicTests
             float capital = store.Money;
             Assert.False(store.Stock(seller, price, count, isbn, description));
             Assert.Equal(capital, store.Money);
+            Assert.Empty(store.GetEvents());
         }
         #endregion
     }
