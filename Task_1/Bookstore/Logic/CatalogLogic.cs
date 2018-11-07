@@ -13,6 +13,8 @@ namespace Logic
         public void Add(String title, String author, ISBN isbn, float price)
         {
             Book book = new Book(new Description(title, author), price);
+         
+            
             
             if (!catalog.ContainsValue(book))
             {
@@ -39,6 +41,7 @@ namespace Logic
         
             try
             {
+                catalog.Remove(isbn);
                 Console.WriteLine("Removing a book{0}, {1}" + catalog[isbn].Description.Title + catalog[isbn].Description.Author);
 
 
