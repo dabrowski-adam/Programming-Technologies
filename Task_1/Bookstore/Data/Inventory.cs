@@ -31,11 +31,16 @@ namespace Data
             {
                 int count = data[key];
 
-                if (count > value) {
+                if (count > value)
+                {
                     data[key] -= value;
-                } else if (count == value) {
+                }
+                else if (count == value)
+                {
                     data.Remove(key);
-                } else {
+                }
+                else
+                {
                     throw new System.ArgumentOutOfRangeException(nameof(value));
                 }
             }
@@ -78,7 +83,10 @@ namespace Data
 
         public bool Remove(KeyValuePair<ISBN, int> item) => data.Remove(item.Key);
 
-        public bool TryGetValue(ISBN key, out int value) => data.TryGetValue(key, out value);
+        public bool TryGetValue(ISBN key, out int value) 
+        {
+            return data.TryGetValue(key, out value);
+        }
 
         IEnumerator IEnumerable.GetEnumerator() => data.GetEnumerator();
     }

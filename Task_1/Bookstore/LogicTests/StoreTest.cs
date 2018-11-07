@@ -70,5 +70,15 @@ namespace LogicTests
             Assert.Equal(0, store.GetBookAvailability(isbn));
         }
         #endregion
+
+        #region SuccessfulSale
+        [Theory]
+        [MemberData(nameof(StoreTestData.GetStoresAndPossibleSales), MemberType = typeof(StoreTestData))]
+        public void SuccessfulSale(Store store, Actor buyer, ISBN isbn, int count)
+        {
+            float capital = store.Money;
+            Assert.True(store.Sell(buyer, isbn, count));
+        }
+        #endregion
     }
 }

@@ -12,7 +12,17 @@ namespace Data
 
         public bool Equals(ISBN other)
         {
-            return other.Id == Id;
+            return Id.Equals(other.Id);
+        }
+
+        public override bool Equals(Object obj)
+        {
+            ISBN other = obj as ISBN;
+            return Id.Equals(other.Id);
+        }
+
+        public override int GetHashCode() {
+            return Id.GetHashCode();
         }
     }
 }

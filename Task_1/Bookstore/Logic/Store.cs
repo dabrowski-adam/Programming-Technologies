@@ -68,7 +68,7 @@ namespace Logic
         public bool Sell(Actor customer, ISBN isbn, int count)
         {
             int inStock = GetBookAvailability(isbn);
-            if (inStock < count) { return false; }
+            if (inStock == 0 || inStock < count) { return false; }
 
             float price = catalog[isbn].Price;
             Money += price * count;
