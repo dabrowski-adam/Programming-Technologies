@@ -108,11 +108,16 @@ namespace LogicTests
         [MemberData(nameof(StoreTestData.GetStoresAndImpossibleSales), MemberType = typeof(StoreTestData))]
         public void UnsuccessfulSale(Store store, Actor buyer, ISBN isbn, int count)
         {
-            float capital = store.Money;
             var events = store.GetEvents();
+
+            int eventCount = events.Count();
+            int bookCount = store.GetBookAvailability(isbn);
+            float capital = store.Money;
 
             Assert.False(store.Sell(buyer, isbn, count));
             Assert.Equal(capital, store.Money);
+            Assert.Equal(eventCount, events.Count());
+            Assert.Equal(bookCount, store.GetBookAvailability(isbn));
         }
         #endregion
     }
