@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using Logic;
@@ -7,6 +8,27 @@ namespace LogicTests
 {
     public class StoreTest
     {
+        #region GetEvents
+        [Fact]
+        public void GetEventsTest() {
+            var history = new List<Event>();
+            history.Add(new Event(new Actor("John Smith"), new List<Invoice> { new Invoice(new ISBN("1"), 50f, 2) }));
+            Store store = new Store(new Catalog(), new Inventory(), history, .0f);
+            Assert.Equal(history, store.GetEvents());
+        }
+        #endregion
+
+        #region GetBooks
+        [Fact]
+        public void GetBooksTest()
+        {
+            var catalog = new Catalog();
+            catalog.Add(new ISBN("1234567890123"), new Book(new Description("Title", "Author"), 24.99f));
+            Store store = new Store(catalog, new Inventory(), new List<Event>(), .0f);
+            Assert.Equal(catalog.Keys, store.GetBooks());
+        }
+        #endregion
+
         #region SuccessfulStocking
         [Theory]
         [MemberData(nameof(StoreTestData.GetStoresAndAffordableDeliveries), MemberType = typeof(StoreTestData))]
