@@ -46,9 +46,7 @@ namespace Logic
         public bool Sell(Actor customer, ISBN isbn, int count)
         {
             int inStock = inventory[isbn];
-
             if (inStock < count) { return false; }
-
 
             float price = catalog[isbn].Price;
             Invoice invoice = new Invoice(isbn, price, count);
