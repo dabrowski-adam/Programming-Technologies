@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Data
 {
+    /// <summary>
+    /// The Inventory class handles management of current stock.
+    /// </summary>
     public class Inventory : IDictionary<ISBN, int>
     {
         private Dictionary<ISBN, int> data;

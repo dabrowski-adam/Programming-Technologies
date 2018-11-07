@@ -1,11 +1,12 @@
 using Xunit;
+using Logic;
 
 namespace LogicTests
 {
-    public class UnitTest1
+    public class StoreTest
     {
         [Fact]
-        public void Test1()
+        public void BuyTest()
         {
 
         }
