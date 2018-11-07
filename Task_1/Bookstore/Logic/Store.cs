@@ -31,8 +31,13 @@ namespace Logic
             return catalog.Keys.ToList();
         }
 
+        public Book GetBookListing(ISBN isbn)
+        {
+            return catalog.TryGetValue(isbn, out Book book) ? book : null;
+        }
+
         public Description GetBookDescription(ISBN isbn) {
-            return catalog.TryGetValue(isbn, out Book book) ? book.Description : null;
+            return GetBookListing(isbn)?.Description;
         }
 
         public int GetBookAvailability(ISBN isbn)

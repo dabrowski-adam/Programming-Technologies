@@ -76,8 +76,30 @@ namespace LogicTests
         [MemberData(nameof(StoreTestData.GetStoresAndPossibleSales), MemberType = typeof(StoreTestData))]
         public void SuccessfulSale(Store store, Actor buyer, ISBN isbn, int count)
         {
+            var events = store.GetEvents();
+
+            int eventCount = events.Count();
+            int bookCount = store.GetBookAvailability(isbn);
             float capital = store.Money;
+
             Assert.True(store.Sell(buyer, isbn, count));
+
+            // Check event logging
+            Assert.Equal(eventCount + 1, events.Count());
+
+            Event sale = events.Last();
+            Assert.Equal(buyer.Name, sale.Actor.Name);
+
+            var invoices = sale.Invoices;
+            Assert.Single(invoices);
+
+            Invoice invoice = invoices.ElementAt(0);
+            Assert.Equal(isbn, invoice.ISBN);
+            Assert.Equal(store.GetBookListing(isbn).Price, invoice.Price);
+            Assert.Equal(count, invoice.Number);
+
+            // Check inventory
+            Assert.Equal(bookCount - count, store.GetBookAvailability(isbn));
         }
         #endregion
 
@@ -87,7 +109,10 @@ namespace LogicTests
         public void UnsuccessfulSale(Store store, Actor buyer, ISBN isbn, int count)
         {
             float capital = store.Money;
+            var events = store.GetEvents();
+
             Assert.False(store.Sell(buyer, isbn, count));
+            Assert.Equal(capital, store.Money);
         }
         #endregion
     }
