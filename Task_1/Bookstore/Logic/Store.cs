@@ -23,6 +23,10 @@ namespace Logic
             this.history = history;
         }
 
+        public IEnumerable<Event> GetEvents() {
+            return history;
+        }
+
         public IEnumerable<ISBN> GetBooks() {
             return catalog.Keys.ToList();
         }
