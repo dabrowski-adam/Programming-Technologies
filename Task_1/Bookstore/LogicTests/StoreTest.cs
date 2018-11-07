@@ -56,7 +56,18 @@ namespace LogicTests
             float capital = store.Money;
             Assert.False(store.Stock(seller, price, count, isbn, description));
             Assert.Equal(capital, store.Money);
-            Assert.Empty(store.GetEvents());
+
+            // Check event logging
+            var events = store.GetEvents();
+            Assert.Empty(events);
+
+            // Check catalog
+            var books = store.GetBooks();
+            Assert.Empty(books);
+            Assert.Null(store.GetBookDescription(isbn));
+
+            // Check inventory
+            Assert.Equal(0, store.GetBookAvailability(isbn));
         }
         #endregion
     }
