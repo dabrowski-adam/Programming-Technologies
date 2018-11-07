@@ -29,6 +29,19 @@ namespace LogicTests
         }
         #endregion
 
+        #region GetBookListing
+        [Fact]
+        public void GetBookListingTest()
+        {
+            var catalog = new Catalog();
+            Book book = new Book(new Description("Title", "Author"), 24.99f);
+            string id = "1234567890123";
+            catalog.Add(new ISBN(id), book);
+            Store store = new Store(catalog, new Inventory(), new List<Event>(), .0f);
+            Assert.Equal(book, store.GetBookListing(new ISBN(id)));
+        }
+        #endregion
+
         #region SuccessfulStocking
         [Theory]
         [MemberData(nameof(StoreTestData.GetStoresAndAffordableDeliveries), MemberType = typeof(StoreTestData))]
