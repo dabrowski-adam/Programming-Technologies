@@ -13,8 +13,8 @@ namespace LogicTests
         public void GetEventsTest() {
             var history = new List<Event>
             {
-                new Event(new Actor("John Smith"), new List<Invoice> { new Invoice(new ISBN("1"), 50f, 2) }),
-                new Event(new Actor("Larry Page"), new List<Invoice> { new Invoice(new ISBN("2"), 24.99f, 15) })
+                new Event(new Supplier("John Smith"), new List<Invoice> { new Invoice(new ISBN("1"), 50f, 2) }),
+                new Event(new Supplier("Larry Page"), new List<Invoice> { new Invoice(new ISBN("2"), 24.99f, 15) })
             };
             Store store = new Store(new Catalog(), new Inventory(), history, .0f);
             Assert.Equal(history, store.GetEvents());
@@ -89,7 +89,7 @@ namespace LogicTests
         #region SuccessfulStocking
         [Theory]
         [MemberData(nameof(StoreTestData.GetStoresAndAffordableDeliveries), MemberType = typeof(StoreTestData))]
-        public void StockTest(Store store, Actor seller, float price, int count, ISBN isbn, Description description)
+        public void StockTest(Store store, Supplier seller, float price, int count, ISBN isbn, Description description)
         {
             float capital = store.Money;
             Assert.True(store.Stock(seller, price, count, isbn, description));
@@ -130,7 +130,7 @@ namespace LogicTests
         #region UnsuccessfulStocking
         [Theory]
         [MemberData(nameof(StoreTestData.GetStoresAndTooExpensiveDeliveries), MemberType = typeof(StoreTestData))]
-        public void StockTooExpensiveTest(Store store, Actor seller, float price, int count, ISBN isbn, Description description)
+        public void StockTooExpensiveTest(Store store, Supplier seller, float price, int count, ISBN isbn, Description description)
         {
             float capital = store.Money;
             Assert.False(store.Stock(seller, price, count, isbn, description));
@@ -153,7 +153,7 @@ namespace LogicTests
         #region SuccessfulSale
         [Theory]
         [MemberData(nameof(StoreTestData.GetStoresAndPossibleSales), MemberType = typeof(StoreTestData))]
-        public void SuccessfulSale(Store store, Actor buyer, ISBN isbn, int count)
+        public void SuccessfulSale(Store store, Customer buyer, ISBN isbn, int count)
         {
             var events = store.GetEvents();
 
@@ -185,7 +185,7 @@ namespace LogicTests
         #region UnsuccessfulSale
         [Theory]
         [MemberData(nameof(StoreTestData.GetStoresAndImpossibleSales), MemberType = typeof(StoreTestData))]
-        public void UnsuccessfulSale(Store store, Actor buyer, ISBN isbn, int count)
+        public void UnsuccessfulSale(Store store, Customer buyer, ISBN isbn, int count)
         {
             var events = store.GetEvents();
 

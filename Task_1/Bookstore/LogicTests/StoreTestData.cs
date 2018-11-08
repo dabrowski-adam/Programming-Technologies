@@ -19,11 +19,11 @@ namespace LogicTests
             yield return storeFactory.CreateStore(1000000f);
         }
 
-        public static IEnumerable<Actor> GetActors()
+        public static IEnumerable<Supplier> GetSuppliers()
         {
-            yield return new Actor("John Smith");
-            yield return new Actor("Maria Skłodowska-Curie");
-            yield return new Actor("Los Nombres Españoles Son Demasiado Largos");
+            yield return new Supplier("John Smith");
+            yield return new Supplier("Maria Skłodowska-Curie");
+            yield return new Supplier("Los Nombres Españoles Son Demasiado Largos");
         }
 
         public static IEnumerable<Description> GetDescriptions()
@@ -36,7 +36,7 @@ namespace LogicTests
         public static IEnumerable<object[]> GetStoresAndAffordableDeliveries()
         {
             using (IEnumerator<Store> stores = GetStores().GetEnumerator())
-            using (IEnumerator<Actor> actors = GetActors().GetEnumerator())
+            using (IEnumerator<Supplier> actors = GetSuppliers().GetEnumerator())
             using (IEnumerator<Description> descriptions = GetDescriptions().GetEnumerator())
             {
                 yield return new object[] { advance(stores), advance(actors), .0f, 1, new ISBN("1234567890123"), advance(descriptions) };
@@ -50,7 +50,7 @@ namespace LogicTests
         public static IEnumerable<object[]> GetStoresAndTooExpensiveDeliveries()
         {
             using (IEnumerator<Store> stores = GetStores().GetEnumerator())
-            using (IEnumerator<Actor> actors = GetActors().GetEnumerator())
+            using (IEnumerator<Supplier> actors = GetSuppliers().GetEnumerator())
             using (IEnumerator<Description> descriptions = GetDescriptions().GetEnumerator())
             {
                 yield return new object[] { advance(stores), advance(actors), .1f, 1, new ISBN("1234567890123"), advance(descriptions) };
@@ -67,16 +67,16 @@ namespace LogicTests
             String id = "1234567890123";
 
             Store store = storeFactory.CreateStore(1000000f);
-            store.Stock(new Actor("Tor Books"), 100f, 2, new ISBN(id), new Description("God Emperor of Dune", "Frank Herbert"));
-            yield return new object[] { store, new Actor("John Smith"), new ISBN(id), 1 };
+            store.Stock(new Supplier("Tor Books"), 100f, 2, new ISBN(id), new Description("God Emperor of Dune", "Frank Herbert"));
+            yield return new object[] { store, new Customer("John Smith"), new ISBN(id), 1 };
 
             Store store2 = storeFactory.CreateStore(1000000f);
-            store2.Stock(new Actor("Penguin Random House"), 20f, 10, new ISBN(id), new Description("Endurance", "Scot Kelly"));
-            yield return new object[] { store2, new Actor("John Smith"), new ISBN(id), 2 };
+            store2.Stock(new Supplier("Penguin Random House"), 20f, 10, new ISBN(id), new Description("Endurance", "Scot Kelly"));
+            yield return new object[] { store2, new Customer("John Smith"), new ISBN(id), 2 };
 
             Store store3 = storeFactory.CreateStore(1000000f);
-            store3.Stock(new Actor("Macmillan Publishers"), 4.99f, 45, new ISBN(id), new Description("Follow Me Down", "Sherri Smith"));
-            yield return new object[] { store3, new Actor("John Smith"), new ISBN(id), 15 };
+            store3.Stock(new Supplier("Macmillan Publishers"), 4.99f, 45, new ISBN(id), new Description("Follow Me Down", "Sherri Smith"));
+            yield return new object[] { store3, new Customer("John Smith"), new ISBN(id), 15 };
         }
 
         public static IEnumerable<object[]> GetStoresAndImpossibleSales()
@@ -85,16 +85,16 @@ namespace LogicTests
             String id = "1234567890123";
 
             Store store = storeFactory.CreateStore(1000000f);
-            store.Stock(new Actor("Tor Books"), 100f, 1, new ISBN(id), new Description("God Emperor of Dune", "Frank Herbert"));
-            yield return new object[] { store, new Actor("John Smith"), new ISBN(id), 0 };
+            store.Stock(new Supplier("Tor Books"), 100f, 1, new ISBN(id), new Description("God Emperor of Dune", "Frank Herbert"));
+            yield return new object[] { store, new Customer("John Smith"), new ISBN(id), 0 };
 
             Store store2 = storeFactory.CreateStore(1000000f);
-            store2.Stock(new Actor("Penguin Random House"), 20f, 3, new ISBN(id), new Description("Endurance", "Scot Kelly"));
-            yield return new object[] { store2, new Actor("John Smith"), new ISBN(id), 5 };
+            store2.Stock(new Supplier("Penguin Random House"), 20f, 3, new ISBN(id), new Description("Endurance", "Scot Kelly"));
+            yield return new object[] { store2, new Customer("John Smith"), new ISBN(id), 5 };
 
             Store store3 = storeFactory.CreateStore(1000000f);
-            store3.Stock(new Actor("Macmillan Publishers"), 4.99f, 45, new ISBN(id), new Description("Follow Me Down", "Sherri Smith"));
-            yield return new object[] { store3, new Actor("John Smith"), new ISBN("00000000001234"), 500 };
+            store3.Stock(new Supplier("Macmillan Publishers"), 4.99f, 45, new ISBN(id), new Description("Follow Me Down", "Sherri Smith"));
+            yield return new object[] { store3, new Customer("John Smith"), new ISBN("00000000001234"), 500 };
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Logic
             return inventory.TryGetValue(isbn, out int count) ? count : 0;
         }
 
-        public bool Stock(Actor seller, float price, int count, ISBN isbn, Description description)
+        public bool Stock(Supplier seller, float price, int count, ISBN isbn, Description description)
         {
             // Check if there's enough money to pay for this shipment
             if (Money < price * count) { return false; }
@@ -70,7 +70,7 @@ namespace Logic
             return true;
         }
 
-        public bool Sell(Actor customer, ISBN isbn, int count)
+        public bool Sell(Customer customer, ISBN isbn, int count)
         {
             int inStock = GetBookAvailability(isbn);
             if (count == 0 || inStock < count) { return false; }
