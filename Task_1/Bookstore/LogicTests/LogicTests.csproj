@@ -16,4 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Logic\Logic.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="StoreFactoryTest.cs" />
+  </ItemGroup>
 </Project>

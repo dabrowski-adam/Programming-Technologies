@@ -6,5 +6,7 @@
 
   <ItemGroup>
     <Compile Remove="ProductDescriotion.cs" />
+    <Compile Remove="ICustomer.cs" />
+    <Compile Remove="Inventory.cs" />
   </ItemGroup>
 </Project>
