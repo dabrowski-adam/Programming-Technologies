@@ -1,0 +1,36 @@
+﻿<Window x:Class="WPFBookstore.EditBookWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFBookstore"
+        mc:Ignorable="d"
+        Title="Editing Book" MinHeight ="300" MinWidth="400" Height="355.8" Width="400">
+
+
+    <Border Padding="10" Background="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}">
+        <StackPanel>
+            <!-- Window Title-->
+            <TextBlock Text="Editing book" Margin="0 10" FontFamily="Stencil" FontSize="20" />
+
+            <!-- Title -->
+            <TextBlock Text="Title" />
+            <TextBox x:Name="TitleText" Padding="2" />
+
+            <!-- Author -->
+            <TextBlock Text="Author" Margin="0 10 0 0" />
+            <TextBox x:Name="AuthorText" Padding="2" />
+
+            <!-- Genre -->
+            <TextBlock Text="Genre" Margin="0 10 0 0" />
+            <TextBox x:Name="GenreText" Padding="2" />
+            
+            <!-- Count -->
+
+            <Button x:Name="UpdateBookButton" Click="UpdateBookButton_Click" Margin="0,20,199.6,10" Content="Update Book" HorizontalAlignment="Right" Width="174"/>
+
+            <!-- Buttons -->
+            <Button x:Name="CloseButton" Click="CloseButton_Click" Margin="0 0 200 10" Grid.Column="0" Content="Close"/>
+        </StackPanel>
+    </Border>
+</Window>
