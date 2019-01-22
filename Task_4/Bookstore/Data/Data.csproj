@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ProductDescriotion.cs" />
+    <Compile Remove="ICustomer.cs" />
+    <Compile Remove="Inventory.cs" />
+  </ItemGroup>
+</Project>
